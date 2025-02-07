@@ -1,0 +1,27 @@
+
+# Add an entry to the Devices menus in the Taskbar to just unmount a
+# device (not power it down).
+# Based on code in:
+# https://bugs.kde.org/show_bug.cgi?id=270808#c64
+#
+# Needs to be in .local/share/solid/actions/
+# so just symlink to it from there....
+#
+# NOTE: that to power off use:
+# udisksctl power-off -b /dev/sd...
+# Iff we could determine whether the *whole* device is unmounted we
+# could add an option for that, but we can't...
+#
+
+[Desktop Entry]
+X-KDE-Solid-Predicate=[IS StorageVolume AND StorageVolume.ignored == false]
+# This would be better, but doesn't work...
+#X-KDE-Solid-Predicate=[[IS StorageVolume AND StorageVolume.ignored == false] AND StorageAccess.accessible == 'true']
+Actions=Unmount;
+Type=Service
+X-KDE-Action-Custom=true
+
+[Desktop Action Unmount]
+Name=Unmount (but do not power off)
+Icon=emblem-unmounted
+Exec=udisksctl unmount -b %d

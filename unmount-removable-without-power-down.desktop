@@ -1,0 +1,12 @@
+[Desktop Entry]
+X-KDE-Action-Custom=true
+X-KDE-Solid-Predicate=[ StorageVolume.ignored == false AND StorageVolume.usage == 'FileSystem' ]
+Type=Service
+Actions=open;
+
+[Desktop Action open]
+#Exec=kdialog --title "Aushängen ohne Ausschalten" --yesno "Gerät aushängen: %d ?" && udisksctl unmount -b %d && : || kdialog --title "Aushängen ohne Ausschalten" --error "Sorry, Device is not mounted: %d"
+Exec=udisksctl unmount -b %d
+Icon=emblem-unmounted
+Name=Unmount without power down
+Name[de]=Aushängen ohne Ausschalten
